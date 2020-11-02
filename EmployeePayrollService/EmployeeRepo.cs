@@ -21,6 +21,7 @@ namespace EmployeePayrollService
                                     net_pay from employee_payroll";
                     SqlCommand cmd = new SqlCommand(query, this.connection);
                     this.connection.Open();
+
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.HasRows)
                     {
