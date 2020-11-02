@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 namespace EmployeePayrollService
@@ -17,8 +18,11 @@ namespace EmployeePayrollService
                 EmployeePayroll employeePayroll = new EmployeePayroll();
                 using (this.connection)
                 {
-                    string query = @"update payroll set basic_pay=3000000.00 where empID=(select empID from employee where name='Priya') ";
+                    string query = @"update payroll set basic_pay=8000000.00 where empID=(select empID from employee where name=@name) ";
+                    SqlParameter nameParam = new SqlParameter("@name", System.Data.SqlDbType.VarChar, 0);
+                    nameParam.Value = "Priya";
                     SqlCommand cmd = new SqlCommand(query, this.connection);
+                    cmd.Parameters.Add(nameParam);
                     this.connection.Open();
 
                     int rows = cmd.ExecuteNonQuery();
