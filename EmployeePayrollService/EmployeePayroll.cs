@@ -12,6 +12,7 @@ namespace EmployeePayrollService
         public string address { get; set; }
         public string department { get; set; }
         public char gender { get; set; }
+        public double salary { get; set; }
         public double BasicPay { get; set; }
         public double deductions { get; set; }
         public double taxablePay { get; set; }

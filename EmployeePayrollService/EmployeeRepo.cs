@@ -17,8 +17,8 @@ namespace EmployeePayrollService
                 EmployeePayroll employeePayroll = new EmployeePayroll();
                 using (this.connection)
                 {
-                    string query = @"select id,name,salary,start_Date,gender,employee_phone,address,department,basic_pay,deductions,taxable_pay,income_tax,
-                                    net_pay from employee_payroll";
+                    string query = @"select e.empID,e.name,d.deptName,e.salary,e.start_Date,e.address,p.basic_pay,p.income_tax from employee e join department d
+                                    on e.deptID=d.deptID join payroll p on e.empID=p.empID where e.name='Priya'";
                     SqlCommand cmd = new SqlCommand(query, this.connection);
                     this.connection.Open();
 
@@ -29,9 +29,26 @@ namespace EmployeePayrollService
                         {
                             employeePayroll.EmployeeID = dr.GetInt32(0);
                             employeePayroll.EmployeeName = dr.GetString(1);
+                            employeePayroll.department = dr.GetString(2);
+                            employeePayroll.salary = Convert.ToDouble(dr.GetDecimal(3));
+                            employeePayroll.startDate = dr.GetDateTime(4);
+                            employeePayroll.address = dr.GetString(5);
+                            employeePayroll.BasicPay= Convert.ToDouble(dr.GetDecimal(6));
+                            employeePayroll.tax= Convert.ToDouble(dr.GetDecimal(7));
 
-                            Console.WriteLine("{0},{1}", employeePayroll.EmployeeID, employeePayroll.EmployeeName);
-                            Console.WriteLine();
+                          
+                            Console.WriteLine(employeePayroll.EmployeeID+" "+ employeePayroll.EmployeeName+" "+ employeePayroll.department+" "+ employeePayroll.salary+
+                                " "+ employeePayroll.startDate+" "+ employeePayroll.address+" "+ employeePayroll.BasicPay+" "+ employeePayroll.tax);
+                            //Console.WriteLine(employeePayroll.EmployeeName);
+                            //Console.WriteLine(employeePayroll.department);
+                            //Console.WriteLine(employeePayroll.salary);
+                            //Console.WriteLine(employeePayroll.startDate);
+                            //Console.WriteLine(employeePayroll.address);
+                            //Console.WriteLine(employeePayroll.BasicPay);
+                            //Console.WriteLine(employeePayroll.tax);
+
+
+
                         }
                     }
                     else
