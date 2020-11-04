@@ -9,6 +9,7 @@ namespace EmployeePayrollService
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public double salary { get; set; }
-        
+        public string department { get; set; }
+
     }
 }

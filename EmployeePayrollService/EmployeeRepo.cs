@@ -13,7 +13,7 @@ namespace EmployeePayrollService
             return new SqlConnection(@"Data Source=(LocalDb)\ServerName;Initial Catalog=payroll_service;Integrated Security=True");
         }
         
-        public double UpdateEmployeeSalary(EmployeePayrollUpdate employeePayrollUpdate)
+        public string UpdateEmployeeSalary(EmployeePayrollUpdate employeePayrollUpdate)
         {
             EmployeePayroll employeePayroll = new EmployeePayroll();
             SqlConnection SalaryConnection = ConnectionSetup();
@@ -24,11 +24,9 @@ namespace EmployeePayrollService
                 using (SalaryConnection)
                 {
                    
-                    SqlCommand cmd = new SqlCommand("spUpdateEmployeeSalary", SalaryConnection);
+                    SqlCommand cmd = new SqlCommand("spRetrievePayrollData", SalaryConnection);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@empID", employeePayrollUpdate.EmployeeID);
                     cmd.Parameters.AddWithValue("@name", employeePayrollUpdate.EmployeeName);
-                    cmd.Parameters.AddWithValue("@salary", employeePayrollUpdate.salary);
                     SalaryConnection.Open();
 
 
@@ -62,7 +60,7 @@ namespace EmployeePayrollService
             {
                 SalaryConnection.Close();
             }
-            return employeePayroll.salary;
+            return employeePayroll.department;
         }
     }
 }
