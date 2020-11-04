@@ -10,6 +10,7 @@ namespace EmployeePayrollService
         public string EmployeeName { get; set; }
         public double salary { get; set; }
         public string department { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }
