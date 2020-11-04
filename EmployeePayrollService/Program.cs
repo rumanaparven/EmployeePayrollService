@@ -7,8 +7,8 @@ namespace EmployeePayrollService
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            EmployeeRepo er = new EmployeeRepo();
-            er.GetAllEmployee();
+           
+            
         }
     }
 }
