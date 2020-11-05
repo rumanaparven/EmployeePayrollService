@@ -12,6 +12,51 @@ namespace EmployeePayrollService
         {
             return new SqlConnection(@"Data Source=(LocalDb)\ServerName;Initial Catalog=payroll_service;Integrated Security=True");
         }
+        public string RemoveEmployee(string name)
+        {
+
+            SqlConnection SalaryConnection = ConnectionSetup();
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            string status = "";
+            try
+            {
+
+                using (SalaryConnection)
+                {
+
+                    SqlCommand cmd = new SqlCommand("sp_Remove_Employee", SalaryConnection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                   
+                    cmd.Parameters.AddWithValue("@name", name);
+                   
+                    SalaryConnection.Open();
+
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+
+                            status = dr.GetString(0);
+
+
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                SalaryConnection.Close();
+            }
+            return status;
+        }
+
 
         public EmployeePayroll AddNewEmployee(EmployeePayrollUpdate employeePayrollUpdate)
         {

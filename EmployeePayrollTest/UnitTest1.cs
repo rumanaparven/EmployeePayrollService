@@ -95,7 +95,14 @@ namespace EmployeePayrollTest
             EmployeePayroll employeePayroll = employeeRepo.AddNewEmployee(updateModel);
             Assert.AreEqual(updateModel.EmployeeName, employeePayroll.EmployeeName);
         }
-
+        [Test]
+        public void DeleteEmployee()
+        {
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+            
+            string status = employeeRepo.RemoveEmployee("Akansha");
+            Assert.AreEqual("false", status);
+        }
     }
     
 }
