@@ -7,6 +7,7 @@ namespace EmployeePayrollService
     public class EmployeePayroll
     {
         public int EmployeeID { get; set; }
+        public int DeprtmentID { get; set; }
         public string EmployeeName { get; set; }
         public string phoneNumber { get; set; }
         public string address { get; set; }

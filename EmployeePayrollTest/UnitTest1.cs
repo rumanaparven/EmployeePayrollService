@@ -55,10 +55,47 @@ namespace EmployeePayrollTest
             };
 
             List<EmployeePayroll> list = employeeRepo.RetrieveDataByDate(updateModel);
-            Assert.AreEqual("Akansha", list[list.Count - 1].EmployeeName);
+            Assert.AreEqual("Piyush", list[list.Count - 1].EmployeeName);
             Assert.AreEqual("Priya", list[0].EmployeeName);
             
         }
+        [Test]
+        public void GivenSalary_FindTotalSalary()
+        {
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+            EmployeePayrollUpdate updateModel = new EmployeePayrollUpdate();
+            {
+                updateModel.EmployeeID = 2;
+                updateModel.EmployeeName = "Priya";
+                updateModel.salary = 68000;
+
+            };
+            double expected = 508000;
+            double totalSalary = employeeRepo.RetrieveSumAvg(updateModel);
+            Assert.AreEqual(expected, totalSalary);
+        }
+
+        [Test]
+        public void AddNewEmployee()
+        {
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+            EmployeePayrollUpdate updateModel = new EmployeePayrollUpdate();
+            {
+                DateTime dt = new DateTime(2019, 05, 12);
+               
+                updateModel.DeprtmentID = 104;
+                updateModel.EmployeeName = "Piyush";
+                updateModel.gender = 'M';
+                updateModel.salary = 68000;
+                updateModel.Date = dt;
+                updateModel.phoneNumber = "9089336410";
+                updateModel.address = "Dmr";
+
+            };
+            EmployeePayroll employeePayroll = employeeRepo.AddNewEmployee(updateModel);
+            Assert.AreEqual(updateModel.EmployeeName, employeePayroll.EmployeeName);
+        }
+
     }
     
 }
