@@ -84,12 +84,13 @@ namespace EmployeePayrollTest
                 DateTime dt = new DateTime(2019, 05, 12);
                
                 updateModel.DeprtmentID = 104;
-                updateModel.EmployeeName = "Piyush";
+                updateModel.EmployeeName = "Amit";
                 updateModel.gender = 'M';
                 updateModel.salary = 68000;
                 updateModel.Date = dt;
                 updateModel.phoneNumber = "9089336410";
                 updateModel.address = "Dmr";
+                updateModel.isActive = "true";
 
             };
             EmployeePayroll employeePayroll = employeeRepo.AddNewEmployee(updateModel);
@@ -103,6 +104,31 @@ namespace EmployeePayrollTest
             string status = employeeRepo.RemoveEmployee("Akansha");
             Assert.AreEqual("false", status);
         }
+        [Test]
+        public void UC1_Multithread_AddNewEmployee()
+        {
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+            EmployeePayrollUpdate updateModel = new EmployeePayrollUpdate();
+            {
+                DateTime dt = new DateTime(2019, 05, 12);
+
+                updateModel.DeprtmentID = 104;
+                updateModel.EmployeeName = "Ananya";
+                updateModel.gender = 'F';
+                updateModel.salary = 68000;
+                updateModel.Date = dt;
+                updateModel.phoneNumber = "9089336410";
+                updateModel.address = "Dmr";
+                updateModel.isActive = "true";
+
+            };
+            DateTime startDateTime = DateTime.Now;
+            EmployeePayroll employeePayroll = employeeRepo.AddNewEmployee(updateModel);
+            DateTime endDateTime = DateTime.Now;
+            Console.WriteLine("Time taken without thread : " + (endDateTime - startDateTime));
+            Assert.AreEqual(updateModel.EmployeeName, employeePayroll.EmployeeName);
+        }
+
     }
     
 }

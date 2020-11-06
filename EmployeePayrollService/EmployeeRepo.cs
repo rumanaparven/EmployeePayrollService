@@ -69,7 +69,7 @@ namespace EmployeePayrollService
                 using (SalaryConnection)
                 {
 
-                    SqlCommand cmd = new SqlCommand("sp_Add_Employee", SalaryConnection);
+                    SqlCommand cmd = new SqlCommand("sp_Add_Employee_Details", SalaryConnection);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@departmentID", employeePayrollUpdate.DeprtmentID);
                     cmd.Parameters.AddWithValue("@name", employeePayrollUpdate.EmployeeName);
@@ -78,6 +78,7 @@ namespace EmployeePayrollService
                     cmd.Parameters.AddWithValue("@start_Date", employeePayrollUpdate.Date);
                     cmd.Parameters.AddWithValue("@contactNo", employeePayrollUpdate.phoneNumber);
                     cmd.Parameters.AddWithValue("@address", employeePayrollUpdate.address);
+                    cmd.Parameters.AddWithValue("@is_active", employeePayrollUpdate.isActive);
                     SalaryConnection.Open();
 
 

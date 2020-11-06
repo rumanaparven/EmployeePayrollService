@@ -15,6 +15,6 @@ namespace EmployeePayrollService
         public DateTime Date { get; set; }
         public string phoneNumber { get; set; }
         public string address { get; set; }
-
+        public string isActive { get; set; }
     }
 }
