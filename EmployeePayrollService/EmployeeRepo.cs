@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EmployeePayrollService
 {
@@ -11,6 +13,21 @@ namespace EmployeePayrollService
         private static SqlConnection ConnectionSetup()
         {
             return new SqlConnection(@"Data Source=(LocalDb)\ServerName;Initial Catalog=payroll_service;Integrated Security=True");
+        }
+        public List<EmployeePayroll> AddUsingThreads(List<EmployeePayrollUpdate> list)
+        {
+            List<EmployeePayroll> payrolls = new List<EmployeePayroll>();
+            foreach(EmployeePayrollUpdate emp in list)
+            {
+                Thread thread = new Thread(() => 
+                {
+                    payrolls.Add(AddNewEmployee(emp));
+                });
+                thread.Start();
+                thread.Join();
+            }
+            return payrolls;
+            
         }
         public string RemoveEmployee(string name)
         {

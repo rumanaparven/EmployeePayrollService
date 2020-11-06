@@ -129,6 +129,43 @@ namespace EmployeePayrollTest
             Assert.AreEqual(updateModel.EmployeeName, employeePayroll.EmployeeName);
         }
 
+        [Test]
+        public void UC2_Multithread_AddNewEmployeeUsingThreads()
+        {
+            DateTime dt = new DateTime(2019, 05, 12);
+            List<EmployeePayrollUpdate> list = new List<EmployeePayrollUpdate>();
+            EmployeeRepo employeeRepo = new EmployeeRepo();
+            list.Add(new EmployeePayrollUpdate()
+            {
+                DeprtmentID = 104,
+                EmployeeName = "Rahul",
+                gender = 'M',
+                salary = 68000,
+                Date = dt,
+                phoneNumber = "9089336410",
+                address = "Dmr",
+                isActive = "true"
+
+            });
+            list.Add(new EmployeePayrollUpdate()
+            {
+                DeprtmentID = 104,
+                EmployeeName = "Mayuri",
+                gender = 'F',
+                salary = 68000,
+                Date = dt,
+                phoneNumber = "9089336410",
+                address = "Dmr",
+                isActive = "true"
+
+            });
+
+            DateTime startDateTime = DateTime.Now;
+            List<EmployeePayroll> l = employeeRepo.AddUsingThreads(list);
+            DateTime endDateTime = DateTime.Now;
+            Console.WriteLine("Time taken with thread : " + (endDateTime - startDateTime));
+            Assert.AreEqual(2,l.Count);
+        }
     }
     
 }
